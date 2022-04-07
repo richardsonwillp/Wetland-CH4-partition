@@ -1,0 +1,102 @@
+Author: Will P. Richardson (wprichar@uark.edu)
+
+This document serves as a reference for the contents of all output files produced by the partitioning program. The contents are split primarily into two sections 1) files produced by the originally published partitioning program (Iwata et al. 2018, Boundary-Layer Meteorology) and 2) files unique to this modified partitioning program (Richardson et al. 2022, Boundary-Layer Meteorology). Note that there is some occasional redundancy between the two sets of files, but this is maintained for the time being to ensure traceability of each subroutine of the partitioning program.
+
+-----------------------------------------------------------------------------------------------------
+1) Original program files
+
+Note that all files are stored within subdirectories '/site_yr/run_ID' inside of the parent directories below
+
+By directory:
+
+- 'fig': 4x4 scatterplots (2 per period) of Wm vs. Wq, Wm vs. Wc, Wm vs. WT, WT vs. Wq
+
+- 'txt': Files containing each 30-min. period’s wavelet coefficients (cols: index, u, w, T, q, CO2, CH4) that were kept after being filtered for frequency (i.e., fnLB <= fn <= fnUB; coefficients used to fit iteratively-reweighted linear regression). Note the ‘index’ column tracks the scale parameter (i.e., scale of the wavelet transform, or frequency) of each wavelet coefficient; its value ranges from 2^0 to 2^(M-1) with M being the number of scales used in the wavelet transform (M = log2(N) rounded down to the nearest integer, where N is the total number of data points in the time series)
+
+- 'filt': All wavelet coefficients from each half-hour period with Boolean flags for whether the coefficient fell outside of the ebullition threshold based on q, c, or T. Also a column for whether or not the coefficient had a frequency value less than the lower bound (i.e., coefficient not considered in partitioning if value is 1)
+
+- 'slope': Each half-hour period’s iteratively-reweighted linear regression slope coefficient for each of the regressions done in robust.R (NOTE: this information along with regression R2, RMSD, and MAD values are contained in the files labeled with 'RLMfitRMSDs_fnLB_?_fnUB_?' within the directory ref_data/Output/site_yr; see section 2) for more information)
+
+- 'flux': Each half-hour period’s total and ebullitive flux estimate based on each reference scalar as well as the low frequency component of the flux (flux*.txt); the random error estimate for the diffusive and ebullitive components of the total flux (rerror*.txt) 
+
+
+-----------------------------------------------------------------------------------------------------
+2) Modified program files 
+
+*** Note, a text file of half-hourly sigma_m and sigma_m/u* is saved in ref_data/Input/site_yr when a site year of data is partitioned for the first time 
+
+ref_data/Output top level:
+--------------------------
+- *_PartRunInfo.txt: the settings for each partitioning run; contains all user-supplied variables in sh/part_master.sh as well as the start and end times of the partitioning run
+
+-  *_Interm_RefDf_allHH.csv: an intermediate dataframe created by the program containing all supplied half-hourly input values (can ignore for all intensive purposes)
+
+- *_Interm_RefDf_?Part_filtHH_NLfilt.csv: an intermediate dataframe containing all supplied half-hourly input values but filtered for quality requirements pertaining to validity of eddy covariance assumptions, fetch requirements, and non-local processes for each reference scalar (replacing ? with either q or c) [this keeps a record of all baseline-filtered periods, in case the user wishes to customize downstream filtering processes after running the program; additionally, this record of the files contains the dimensionless flux-variance quantity [?_MOST_scale] for water vapor and carbon dioxide if the user wants to do further investigation into non-local processes]
+
+- *_Interm_RefDf_?Part_filtHH.csv: an intermediate dataframe containing all supplied half-hourly input values but filtered for quality requirements pertaining to validity of eddy covariance assumptions and fetch requirements but NOT non-local processes (NOTE: it is highly recommended to filter for non-local processes, as these can also cause violations of local scalar similarity)
+
+- *_RLMfitRMSDs_fnLB_?_fnUB_?.csv: results of iteratively-reweighted linear regression models fit between Wm–Wq, Wm–Wc, Wm–WT, and Wc–Wq for each half-hour period. The number of coefficients used to fit the model, along with model slope coefficient, R2, RMSD, and MAD values. Each time a new set of frequency bounds is used, the models must be re-fitted, and an additional version of the file is made (replacing both ? in the filename with the respective frequency bound values). Note, these data are also contained in the Full Output files (see below)
+
+- *_RMSDx-sigmaCH4_slopes_EbThreshWidth_fnLB_?_fnUB_?.csv: contains possible values for the empirical RMSD parameter defining the ebullition threshold based on each reference scalar. Rows are indexed by the method of fitting the threshold (e.g., 'NonEb_LinReg' – linear regression between RMSD and the scaling quantity in non-ebullitive periods; 'QuantReg_q25' – quantile regression between RMSD and the scaling quantity in all best quality periods). Each column contains the values for a given reference scalar (i.e., q, c, or T) and scaling quantity (i.e., sigma_m or sigma_m/u*)
+
+- *_MOST_FV_plot.png: a figure plotting the Monin–Obukhov similarity theory flux-variance relationship for each reference scalar in unstable conditions (should give a general idea of how often non-local processes are significant)
+
+- *_ustar_distribution.png: histograms of the friction velocity in periods meeting the baseline quality requirements (i.e., the periods in the *_Interm_RefDf_?Part_filtHH_NLfilt.csv files)
+
+
+ref_data/Output/run_ID:
+-----------------------
+- *_FracEb_RefScalFlux_brkpts.csv: results from the broken-line regressions fit between fractional ebullition and reference scalar fluxes. The estimated reference scalar thresholds are held in the columns labeled '_brkpt'. This component of the program is still in progress and it is currently recommended to identify these thresholds manually by examining the figure '*_RefScalarThreshPlot.png'. If the initial guess for the breakpoint value is bad, the algorithm will not converge and this file will not be produced
+
+- *_Interm_RefDf_allHH_PostProcStats.csv: an intermediately saved dataframe created after running spectral and other post-processing stats (kept for traceability, can largely ignore)
+
+- *_FullOutput_allHH.csv: a file containing all half-hourly outputs from the program for all periods. 	NOTE: all files labeled 'FullOutput' are indexed with time stamps in LOCAL time zone; all other outputs with timestamp-indexed data are in the logging time zone
+
+- *_FullOutput_?Part_filtHH_NLfilt.csv: file containing all half-hourly outputs from the program for periods which met ALL quality requirements for the reference scalar represented by ?. These periods have been filtered for low magnitudes of the reference scalar flux and total CH4 flux as well as to remove periods with negative fractional ebullition.
+***** these two files are likely what the user desires for further analysis without having to do much additional filtering. See the end of this document for a comprehensive key of column names in this file
+
+- *_RMSDx-sigmaCH4_plot_fnLB_?_fnUB_?.png: two scatterplots (same data, one is zoomed in) of RMSDx vs. sigma_m with the resultant ebullition threshold values plotted as lines
+
+- *_RMSDx-sigmaCH4_ust_plot_fnLB_?_fnUB_?.png: two scatterplots (same data, one is zoomed in) of RMSDx vs. sigma_m/u* with the resultant ebullition threshold values plotted as lines
+
+-----------------------------------------------------------------------------------------------------
+Full Output column key:
+
+*** All normalized spectral quantities are dimensionless
+
+- 'CH4_tot': the total CH4 flux calculated by the program [units: umol/m2/s]
+- 'CH4_eb_?': the ebullitive flux based on the given reference scalar (replacing ? with q, c, or T) [units: umol/m2/s]
+- 'LFC_CH4': CH4 flux contributed by frequencies lower than the lower bound [units: umol/m2/s]
+- 'CH4_diff?_err': random error associated with the diffusive component of the flux based on the given reference scalar (replacing ? with q, c, or T) [units: umol/m2/s] 
+- 'CH4_eb?_err': random error associated with the ebullitive component of the flux based on the given reference scalar (replacing ? with q, c, or T) [units: umol/m2/s]
+- 'frac_eb_?': fractional ebullition (i.e., the ebullitive flux divided by the total CH4 flux) based  on the given reference scalar (replacing ? with q, c, or T) [units: –]
+- 'raw_file': the filename of the raw data corresponding to the period
+- 'CH4_diff_?': the diffusive component of the flux based on the given reference scalar (replacing ? with q, c, or T) [units: umol/m2/s]
+- 'Eb?_rerr_FebNorm': the random error associated with the ebullitive flux normalized by the respective ebullitive flux value (replacing ? with q, c, or T depending on reference scalar) [units: –]
+- 'Eb?_rerr_FtotNorm': the random error associated with the ebullitive flux normalized by the total flux (replacing ? with q, c, or T depending on reference scalar) [units: –]
+- 'Diff?_rerr_FdiffNorm': the random error associated with the diffusive flux normalized by the respective diffusive flux value (replacing ? with q, c, or T depending on reference scalar) [units: –]
+- 'Diff?_rerr_FtotNorm': the random error associated with the diffusive flux normalized by the total flux (replacing ? with q, c, or T depending on reference scalar) [units: –]
+- 'fn_j?_ts?': the normalized frequency value for a given scale of the wavelet transform (scale denoted by integer following j and the corresponding time scale in seconds following ts) [units: –]
+- 'm_NormVar_j?_ts?': the normalized methane variance at a given scale of the wavelet transform 
+- 'q_NormVar_j?_ts?': the normalized water vapor variance at a given scale of the wavelet transform
+- 'c_NormVar_j?_ts?': the normalized carbon dioxide variance at a given scale of the wavelet transform
+- 'Ts_NormVar_j?_ts?': the normalized sonic temperature variance at a given scale of the wavelet transform
+- 'w_NormVar_j?_ts?': the normalized vertical wind speed variance at a given scale of the wavelet transform
+- 'wm_NormCov_j?_ts?': the normalized methane–vertical wind speed covariance at a given scale of the wavelet transform
+- 'wq_NormCov_j?_ts?': the normalized water vapor–vertical wind speed covariance at a given scale of the wavelet transform
+- 'wc_NormCov_j?_ts?': the normalized carbon dioxide–vertical wind speed covariance at a given scale of the wavelet transform
+- 'wT_NormCov_j?_ts?': the normalized sonic temperature–vertical wind speed covariance at a given scale of the wavelet transform
+- 'Eb?_NormCov_j?_ts?': the normalized methane-vertical wind speed covariance at a given scale of the wavelet transform, using only coefficients identified as ebullitive based on the given reference scalar 
+- 'mq_coh1_j?_ts?': the normalized methane–water vapor coherence (i.e., scale-wise correlation) at a given scale of the wavelet transform
+- 'mc_coh1_j?_ts?': the normalized methane–carbon dioxide coherence (i.e., scale-wise correlation) at a given scale of the wavelet transform
+- 'qc_coh1_j?_ts?': the normalized water vapor–carbon dioxide coherence (i.e., scale-wise correlation) at a given scale of the wavelet transform
+- 'var_?': global variance of the scalar represented by ?, calculated from the wavelet coefficients [units correspond to those of input scalars squared]
+- 'stdev_m': standard deviation of methane across the half hour period, calculated from the wavelet coefficients [units: mmol/m3]
+- 'stdev_m_eb?': standard deviation of methane contributed by coefficients detected as ebullitive based on the given reference scalar
+- 'stdev_m_diff?': standard deviation of methane contributed by coefficients detected as diffusive based on the given reference scalar
+- 'cov_w?': the total scalar–vertical wind speed covariance in the half-hour period, calculated from the wavelet coefficients
+- 'cov_wm_eb?': the methane–vertical wind speed covariance contributed by coefficients detected as ebullitive based on the given reference scalar
+- 'cov_wm_diff?': the methane–vertical wind speed covariance contributed by coefficients detected as diffusive based on the given reference scalar
+- 'LE_flag': '1' if the latent heat flux was lower than its threshold for adequate scalar similarity, 0 otherwise
+- 'Fco2_flag': '1' if the CO2 flux was lower than its threshold for adequate scalar similarity, 0 otherwise
+
