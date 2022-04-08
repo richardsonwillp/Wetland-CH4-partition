@@ -11,8 +11,7 @@ Key differences between this program and that of Iwata et al. are:
 - Advanced post-processing steps including spectral and other stats derived from program outputs, an extra quality control step to remove periods in which reference scalar flux magnitudes are too low for reliable partitioning, creation of a unified master file of all half-hourly outputs, and visualization of spectral quantities to inform appropriate selection of the lower frequency bound parameter
 
 Please refer to Iwata et al. (https://doi.org/10.1007/s10546-018-0383-1) and the manuscript accompanying this program code for detailed explanation of this method's theoretical background:
-
-See Richardson et al. (2022), Boundary-Layer Meteorology (https://doi.org/10.1007/s10546-022-00703-y)
+Richardson et al. (2022), Boundary-Layer Meteorology (https://doi.org/10.1007/s10546-022-00703-y)
 for full details on the method.
 
 -----------------------------------------------------------------------------------------------------
