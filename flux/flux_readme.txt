@@ -1,0 +1,1 @@
+This directory holds files of each day's half-hourly total and ebullitive CH4 flux estimates along with their random error estimates.

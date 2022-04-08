@@ -1,0 +1,1 @@
+This directory holds files containing each half-hour period’s wavelet coefficients (i.e., high frequency data time series data transformed into the wavelet domain). 

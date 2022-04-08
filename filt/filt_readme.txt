@@ -1,0 +1,1 @@
+This directory holds files of wavelet coefficients from each half-hour period with Boolean flags for downstream processing.

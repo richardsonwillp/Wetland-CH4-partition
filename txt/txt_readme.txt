@@ -1,0 +1,1 @@
+This directory holds files containing each half-hour period’s wavelet coefficients that were kept after being filtered for frequency. 

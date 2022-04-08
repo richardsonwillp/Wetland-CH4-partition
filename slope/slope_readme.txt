@@ -1,0 +1,1 @@
+This directory holds files of each half-hour period’s iteratively-reweighted linear regression slope coefficients along with fitting statistics. 

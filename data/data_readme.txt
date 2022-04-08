@@ -1,0 +1,1 @@
+This directory holds the pre-processed high frequency time series data for each half-hour period that will be partitioned.
