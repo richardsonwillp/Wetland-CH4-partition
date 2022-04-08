@@ -1,5 +1,7 @@
 # Wetland CH4 Flux Partition
 
+Author: Will P. Richardson (wprichar@uark.edu)
+
 This program partitions eddy-covariance methane fluxes from wetlands and lakes into ebullitive (i.e., bubbles) and diffusive (i.e., diffusion from water column and plant-mediated transport) subcomponents based on local scalar similarity between methane and other atmospheric scalars in the wavelet domain. The program and code are modified from those developed by Iwata et al. 2018, Boundary-Layer Meteorology. 
 
 Key differences between this program and that of Iwata et al. are:
