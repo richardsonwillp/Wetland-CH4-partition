@@ -1,0 +1,2 @@
+file_name T=H2O*slope CH4=T*slope CH4=H2O*slope CH4=CO2*slope
+wvlet-20150804_1530.dat	-0.075737	-0.00129695	0.0002304696	-5.867772e-05
