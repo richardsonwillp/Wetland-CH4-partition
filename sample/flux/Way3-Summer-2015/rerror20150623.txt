@@ -1,0 +1,2 @@
+file_name diffusive_flux_based_on_T-CH4 bubble_CH4_flux_based_on_T-CH4 diffusive_flux_based_on_H2O-CH4 bubble_CH4_flux_based_on_H2O-CH4 diffusive_flux_based_on_CO2-CH4 bubble_CH4_flux_based_on_CO2-CH4
+wvlet-20150623_1500.dat	   7.9814328568840984E-006   9.3828050075739972E-006   9.4601033232370656E-006   7.8925848101086322E-006   9.1822440747137967E-006   8.2444504488063062E-006

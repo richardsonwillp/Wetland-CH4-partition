@@ -1,0 +1,2 @@
+file_name total_CH4_flux bubble_CH4_flux_based_on_T-CH4 bubble_CH4_flux_based_on_H2O-CH4 bubble_CH4_flux_based_on_CO2-CH4 low-frequency_component_CH4_flux
+wvlet-20150618_1300.dat	   1.5310784201295289E-004   1.3148590453239802E-005   1.1136503289907564E-005   7.8662984135827058E-006   2.4186806311477852E-006
