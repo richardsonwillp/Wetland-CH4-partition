@@ -1,0 +1,29 @@
+Run start time: 2022-04-07 17:09
+Site-year ID: Way3-Summer-2015
+Partitioning run ID: Run_test
+Time zone of the site: America/Chicago
+Time zone in which data were logged: America/Chicago
+FILE PATH INFORMATION
+Output from your typical flux processing pipeline located in /Volumes/Backup-Will/Wetland-CH4-partition/ref_data/Input/Way3-Summer-2015/eddypro_adv_full_output_2021-11-09T211349_adv.csv
+Other stats needed located in /Volumes/Backup-Will/Wetland-CH4-partition/ref_data/Input/Way3-Summer-2015/eddypro_Run1_st6_plusQCflags.csv
+Non-ebullitive periods listed in /Volumes/Backup-Will/Wetland-CH4-partition/ref_data/Input/Way3-Summer-2015/Way3-Summer-2015_NonEbPeriods.txt
+Canopy height data located in /Volumes/Backup-Will/Wetland-CH4-partition/ref_data/Input/Way3-Summer-2015/Way3-Summer-2015_zc.txt
+SITE PARAMETERS
+Measurement height = 2.20 m
+eddy covariance system acquisition rate = 0.05 s
+user-supplied u_star threshold = 0.0 m s-1
+minimum allowed wind direction = 95 degrees
+maximum allowed wind direction = 265 degrees
+fetch expands 350 m from tower
+minimum CH4 flux to ensure adequate scalar similarity for partitioning: 0.01 umol m-2 s-1
+user-supplied minimum LE to ensure adequate scalar similarity for partitioning: 27 W m-2
+user-supplied minimum Fco2 to ensure adequate scalar similarity for partitioning: 6 umol m-2 s-1
+filtering for non-local processes? True
+PARTITIONING PARAMETERS
+lower frequency bound = 0.003
+upper frequency bound = 1.0
+Ebullition threshold type: NonEb_LinReg
+Ebullition threshold scaling quantity: sigma_m
+
+###################################
+Run end time: 2022-04-07 17:20
