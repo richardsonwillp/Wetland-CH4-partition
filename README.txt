@@ -21,13 +21,15 @@ The program is designed to be run on a linux computer or in any linux-like envir
   - r-base
   - r-cran-foreign
   - r-cran-mass
-  - r-cran-Metrics
+  - r-cran-metrics
   - r-cran-segmented
 - Python packages:
   - pandas
   - numpy
   - matplotlib
   - statsmodels
+
+These packages and their dependencies can be installed from the terminal using the command "sudo apt-get install $package" (e.g., "sudo apt-get install python3-pandas", "sudo apt-get install r-base")
 
 -----------------------------------------------------------------------------------------------------
 2. Program usage
