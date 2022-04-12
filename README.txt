@@ -13,7 +13,7 @@ Richardson et al. (2022), Boundary-Layer Meteorology (https://doi.org/10.1007/s1
 -----------------------------------------------------------------------------------------------------
 1. Computational Requirements
 
-The program is designed to be run on a linux computer or in any linux-like environment. The user should make sure that the following programming tools and packages are installed for full functionality:
+The program is designed to be run on a linux computer or in any linux-like environment (e.g., Ubuntu, Cygwin). The user should make sure that the following programming tools and packages are installed for full functionality:
 
 - tcsh
 - gfortran
