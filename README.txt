@@ -19,9 +19,8 @@ The program is designed to be run on a linux computer or in any linux-like envir
 - gfortran
 - R packages: 
   - r-base
-  - r-aran-foreign
+  - r-cran-foreign
   - r-cran-mass
-  - r-cran-rmisc
   - r-cran-metrics
   - r-cran-segmented
 - Python packages:
