@@ -81,9 +81,9 @@ def BinAvg_2(df, fn_str, var_str, nBins):
             frame = frame.loc[frame[var_str] < thresh]  
             
         mean = frame.mean(axis=0)
-        bin_means = pd.concat([bin_means, mean], ignore_index=True)
+        bin_means = pd.concat([bin_means, mean], ignore_index=True, sort=True)
         std = frame.std(axis=0)
-        bin_std = pd.concat([bin_std, std], ignore_index=True)
+        bin_std = pd.concat([bin_std, std], ignore_index=True, sort=True)
     
     return(bin_means, bin_std)
 
