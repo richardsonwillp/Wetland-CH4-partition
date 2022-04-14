@@ -117,16 +117,16 @@ set EbThresh_file = `echo "$WORKDIR""/ref_data/Output/""$site_yr""/""$site_yr""_
 
 ## m-ref RMSDs
 if ( $EbThresh_qty == sigma_m ) then
-	set SD_QCH = `ggrep $EbThresh_type $EbThresh_file | cut -f2 -d ','`
-	set SD_CCH = `ggrep $EbThresh_type $EbThresh_file | cut -f3 -d ','`
-	set SD_TCH = `ggrep $EbThresh_type $EbThresh_file | cut -f4 -d ','`
+	set SD_QCH = `grep $EbThresh_type $EbThresh_file | cut -f2 -d ','`
+	set SD_CCH = `grep $EbThresh_type $EbThresh_file | cut -f3 -d ','`
+	set SD_TCH = `grep $EbThresh_type $EbThresh_file | cut -f4 -d ','`
 	# specify file containing quantity for ebullition threshold
 	set RMSD_qty_file = $sigmaCH4_file
 	
 else if ( $EbThresh_qty == sigma_m_ust ) then
-	set SD_QCH = `ggrep $EbThresh_type $EbThresh_file | cut -f5 -d ','`
-	set SD_CCH = `ggrep $EbThresh_type $EbThresh_file | cut -f6 -d ','`
-	set SD_TCH = `ggrep $EbThresh_type $EbThresh_file | cut -f7 -d ','`
+	set SD_QCH = `grep $EbThresh_type $EbThresh_file | cut -f5 -d ','`
+	set SD_CCH = `grep $EbThresh_type $EbThresh_file | cut -f6 -d ','`
+	set SD_TCH = `grep $EbThresh_type $EbThresh_file | cut -f7 -d ','`
 	# specify file containing quantity for ebullition threshold
 	set RMSD_qty_file = $sigmaCH4ust_file
 
@@ -141,7 +141,7 @@ set SD_QT = 0.0876
 
 foreach day ( $DATA )
 	echo $day
- 	set Zc = `ggrep $day $zc_file | awk '{print $2}'`
+ 	set Zc = `grep $day $zc_file | awk '{print $2}'`
   	echo $Zc
 
   	set DIR = $day
@@ -207,7 +207,7 @@ foreach day ( $DATA )
   
 		# get sigma(CH4) for this period 
   		set tstamp = `echo $file | awk '{print substr($0,7,13)}'`
-  		set sigma_CH4 =  `ggrep $tstamp $RMSD_qty_file | awk '{print $2}'`
+  		set sigma_CH4 =  `grep $tstamp $RMSD_qty_file | awk '{print $2}'`
 		echo $sigma_CH4
   		echo $sigma_CH4 > sigma_CH4.txt
   
