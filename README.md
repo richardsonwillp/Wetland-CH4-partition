@@ -24,7 +24,7 @@ The program is designed to be run on a linux computer or in any linux-like envir
   - r-base
   - r-cran-foreign
   - r-cran-mass
-  - r-cran-Metrics
+  - r-cran-metrics
   - r-cran-segmented
 - Python packages:
   - pandas
