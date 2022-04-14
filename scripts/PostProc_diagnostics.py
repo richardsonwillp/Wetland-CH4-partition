@@ -83,7 +83,6 @@ def BinAvg_2(df, fn_str, var_str, nBins):
         mean = frame.mean(axis=0)
         bin_means = pd.concat([bin_means, mean], ignore_index=True)
         std = frame.std(axis=0)
-        bin_std = bin_std.append(std, ignore_index=True)
         bin_std = pd.concat([bin_std, std], ignore_index=True)
     
     return(bin_means, bin_std)
