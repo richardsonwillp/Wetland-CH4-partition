@@ -84,7 +84,7 @@ else
 endif
 
 # make subdirectory for reference data outputs
-mkdir ref_Data/Output/$site_yr/$run_ID
+mkdir ref_data/Output/$site_yr/$run_ID
 
 # make variable holding path to sigma_CH4 data
 set sigmaCH4_file = `echo "$WORKDIR""/ref_data/Input/""$site_yr""/""$site_yr""_sigmaCH4.txt"`
