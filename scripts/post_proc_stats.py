@@ -242,7 +242,8 @@ for n in np.arange(df_master.shape[0]):
     if n == 0:
         out_df = spec_out
     else:
-        out_df = out_df.append(spec_out)
+        # out_df = out_df.append(spec_out)
+        out_df = pd.concat([out_df, spec_out], sort=True)
 
 #%% save new reference df with all of these stats
 

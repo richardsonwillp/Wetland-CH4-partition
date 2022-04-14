@@ -36,7 +36,6 @@ output_loc <- paste(base_path, '/ref_data/Output/', site_yr, '/', site_yr,'_RLMf
 # libraries
 library(MASS)
 library(Metrics)
-library(Rmisc)
 
 # load canopy height data
 zc_df <- read.delim(zc_loc, header=FALSE, sep='\t', col.names=c('date', 'canopy_height'), stringsAsFactors=FALSE)
